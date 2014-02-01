@@ -4,6 +4,7 @@ import com.bpoplataforma.tuevento.dao.EventoDAO;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 
 public class MainActivity extends Activity {
@@ -19,6 +20,8 @@ public class MainActivity extends Activity {
 		datasource.crearEventosDePrueba();
 		//List eventosUsuario = datasource.obtenerEventosDeUsuario(new Usuario());
 		
+		Intent intent = new Intent(MainActivity.this, EventoActual.class);
+		startActivity(intent);
 	}
 
 	@Override
