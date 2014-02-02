@@ -91,8 +91,8 @@ public class EventoDAO {
 		values.put(TuEventoSQLiteHelper.COLUMNA_EVENTOS_CIUDAD, 1);
 		values.put(TuEventoSQLiteHelper.COLUMNA_EVENTOS_FECHA_COMIENZO, "01-02-2014");
 		values.put(TuEventoSQLiteHelper.COLUMNA_EVENTOS_FECHA_FIN, "05-02-2014");
-		values.put(TuEventoSQLiteHelper.COLUMNA_EVENTOS_LAT, 43.052093);
-		values.put(TuEventoSQLiteHelper.COLUMNA_EVENTOS_LON, -3.001071);
+		values.put(TuEventoSQLiteHelper.COLUMNA_EVENTOS_LAT, -31.387554);
+		values.put(TuEventoSQLiteHelper.COLUMNA_EVENTOS_LON, -57.964565);
 
 		db.insert(TuEventoSQLiteHelper.TABLA_EVENTOS, 
 				null, values);

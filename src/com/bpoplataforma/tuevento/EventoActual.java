@@ -1,8 +1,15 @@
 package com.bpoplataforma.tuevento;
 
+import java.util.List;
+import java.util.Vector;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+
+import com.bpoplataforma.tuevento.dao.EventoDAO;
+import com.bpoplataforma.tuevento.model.Evento;
+import com.bpoplataforma.tuevento.model.Usuario;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -12,11 +19,15 @@ import android.support.v4.app.FragmentActivity;
 public class EventoActual extends FragmentActivity {
 
 	private GoogleMap mMap;
+	private EventoDAO datasource;
+	private List<Evento> eventos = new Vector<Evento>();
+	private Usuario usuario = new Usuario();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_evento_actual);
+		setUpMapIfNeeded();
 	}
 
 	@Override
@@ -46,7 +57,13 @@ public class EventoActual extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+//    	mMap.addMarker(new MarkerOptions().position(new LatLng(-31.387554, -57.964565)).title("lala"));
+    	datasource = EventoDAO.getInstance(this);
+		eventos = datasource.obtenerEventosDeUsuario(usuario);
+		for (Evento evento : eventos) {
+			mMap.addMarker(new MarkerOptions().position(new LatLng(evento.getLat(), evento.getLon())).title(evento.getNombre()));
+		}
+        
     }
 
 }
