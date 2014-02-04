@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
 		datasource.crearEventosDePrueba();
 		//List eventosUsuario = datasource.obtenerEventosDeUsuario(new Usuario());
 		
-		Intent intent = new Intent(MainActivity.this, EventoActual.class);
+		Intent intent = new Intent(MainActivity.this, TabsActivity.class);
 		startActivity(intent);
 	}
 
