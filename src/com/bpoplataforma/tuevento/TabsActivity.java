@@ -1,13 +1,23 @@
 package com.bpoplataforma.tuevento;
 
+import com.bpoplataforma.tuevento.dao.EventoDAO;
+import com.bpoplataforma.tuevento.model.Evento;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.res.Resources;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.widget.TabHost;
 
-public class TabsActivity extends Activity {
+public class TabsActivity extends FragmentActivity{
 
+	private GoogleMap mMap;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,8 +42,27 @@ public class TabsActivity extends Activity {
 		
 		//defino la tab por defecto
 		tabs.setCurrentTabByTag("tabmapa");
+		setUpMapIfNeeded();
 		
 	}
+	
+   private void setUpMapIfNeeded() {
+        // Do a null check to confirm that we have not already instantiated the map.
+        if (mMap == null) {
+            // Try to obtain the map from the SupportMapFragment.
+            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapfrag))
+                    .getMap();
+            // Check if we were successful in obtaining the map.
+            if (mMap != null) {
+                setUpMap();
+            }
+        }
+    }
+
+ 
+    private void setUpMap() {
+    	mMap.addMarker(new MarkerOptions().position(new LatLng(-31.387554, -57.964565)).title("lala"));
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
