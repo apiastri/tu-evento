@@ -1,7 +1,11 @@
 package com.bpoplataforma.tuevento;
 
+import java.util.List;
+import java.util.Vector;
+
 import com.bpoplataforma.tuevento.dao.EventoDAO;
 import com.bpoplataforma.tuevento.model.Evento;
+import com.bpoplataforma.tuevento.model.Usuario;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -17,6 +21,8 @@ import android.widget.TabHost;
 public class TabsActivity extends FragmentActivity{
 
 	private GoogleMap mMap;
+	private List<Evento> eventos = new Vector<Evento>();
+	private Usuario usuario = new Usuario();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
