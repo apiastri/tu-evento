@@ -6,9 +6,12 @@ import java.util.Vector;
 import com.bpoplataforma.tuevento.dao.EventoDAO;
 import com.bpoplataforma.tuevento.model.Evento;
 import com.bpoplataforma.tuevento.model.Usuario;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.os.Bundle;
@@ -21,6 +24,7 @@ import android.widget.TabHost;
 public class TabsActivity extends FragmentActivity{
 
 	private GoogleMap mMap;
+	private EventoDAO datasource;
 	private List<Evento> eventos = new Vector<Evento>();
 	private Usuario usuario = new Usuario();
 	
@@ -48,11 +52,15 @@ public class TabsActivity extends FragmentActivity{
 		
 		//defino la tab por defecto
 		tabs.setCurrentTabByTag("tabmapa");
-		setUpMapIfNeeded();
+		
+		datasource = EventoDAO.getInstance(this);
+		eventos = datasource.obtenerEventosDeUsuario(usuario);
+		Evento evento = eventos.get(0);
+		setUpMapIfNeeded(evento);
 		
 	}
 	
-   private void setUpMapIfNeeded() {
+   private void setUpMapIfNeeded(Evento xEvento) {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
@@ -60,16 +68,20 @@ public class TabsActivity extends FragmentActivity{
                     .getMap();
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
-                setUpMap();
+            	//creo el marcador en el mapa con el evento
+            	mMap.addMarker(new MarkerOptions().position(new LatLng(xEvento.getLat(), xEvento.getLon())).title(xEvento.getNombre()));
+            	//centro el mapa en el marcador
+            	CameraUpdate centro = CameraUpdateFactory.newLatLng(new LatLng(xEvento.getLat(), xEvento.getLon()));
+            	CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
+            	mMap.moveCamera(centro);
+            	mMap.animateCamera(zoom);
+            	
+                
             }
         }
     }
 
  
-    private void setUpMap() {
-    	mMap.addMarker(new MarkerOptions().position(new LatLng(-31.387554, -57.964565)).title("lala"));
-    }
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
