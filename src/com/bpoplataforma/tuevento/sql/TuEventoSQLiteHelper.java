@@ -48,7 +48,7 @@ public class TuEventoSQLiteHelper extends SQLiteOpenHelper {
 		TuEventoSQLiteHelper.COLUMNA_EVENTOS_LAT,
 		TuEventoSQLiteHelper.COLUMNA_EVENTOS_LON };
 	
-	// SQL para creacion de la Tabla Deporte
+	// SQL para creacion de la Tabla Eventos
 	private static final String TABLA_EVENTOS_CREACION = "CREATE TABLE "
 			+ TABLA_EVENTOS + "(" + COLUMNA_EVENTOS_ID + " INTEGER primary key autoincrement, " 
 			+ COLUMNA_EVENTOS_NOMBRE + " TEXT not null,"
@@ -60,7 +60,42 @@ public class TuEventoSQLiteHelper extends SQLiteOpenHelper {
 			+ COLUMNA_EVENTOS_LAT + " REAL,"
 			+ COLUMNA_EVENTOS_LON + " REAL"
 					+ ");";
+	
+	// Columnas Tabla comentarios
+	public static final String COLUMNA_COMENTARIOS_ID = "id";
+	public static final String COLUMNA_COMENTARIOS_USUARIO = "usuario_id";
+	public static final String COLUMNA_COMENTARIOS_EVENTO = "evento_id";
+	public static final String COLUMNA_COMENTARIOS_TEXTO = "texto";
 
+	public static final String[] columnasComentarios = 
+		{ TuEventoSQLiteHelper.COLUMNA_COMENTARIOS_ID,
+		TuEventoSQLiteHelper.COLUMNA_COMENTARIOS_USUARIO,
+		TuEventoSQLiteHelper.COLUMNA_COMENTARIOS_EVENTO,
+		TuEventoSQLiteHelper.COLUMNA_COMENTARIOS_TEXTO};
+	
+	private static final String TABLA_COMENTARIOS_CREACION = "CREATE TABLE "
+			+ TABLA_COMENTARIOS + "(" + COLUMNA_COMENTARIOS_ID + " INTEGER primary key autoincrement, " 
+			+ COLUMNA_COMENTARIOS_USUARIO + " INTEGER not null,"
+			+ COLUMNA_COMENTARIOS_EVENTO + " INTEGER not null,"
+			+ COLUMNA_COMENTARIOS_TEXTO + " TEXT not null"
+		    + ");";
+
+	// Columnas Tabla eventos_favoritos
+	public static final String COLUMNA_EVENTOS_FAVORITOS_ID = "id";
+	public static final String COLUMNA_EVENTOS_FAVORITOS_USUARIO = "usuario_id";
+	public static final String COLUMNA_EVENTOS_FAVORITOS_EVENTO = "evento_id";
+
+	public static final String[] columnasEventosFavoritos = 
+		{ TuEventoSQLiteHelper.COLUMNA_EVENTOS_FAVORITOS_ID,
+		TuEventoSQLiteHelper.COLUMNA_EVENTOS_FAVORITOS_USUARIO,
+		TuEventoSQLiteHelper.COLUMNA_EVENTOS_FAVORITOS_EVENTO};
+	
+	private static final String TABLA_EVENTOS_FAVORITOS_CREACION = "CREATE TABLE "
+			+ TABLA_EVENTOS_FAVORITOS + "(" + COLUMNA_EVENTOS_FAVORITOS_ID + " INTEGER primary key autoincrement, " 
+			+ COLUMNA_EVENTOS_FAVORITOS_USUARIO + " INTEGER not null,"
+			+ COLUMNA_EVENTOS_FAVORITOS_EVENTO + " INTEGER not null"
+			+ ");";
+	
 	public static TuEventoSQLiteHelper getInstance(Context context) {
 
 		// Use the application context, which will ensure that you 
@@ -98,6 +133,8 @@ public class TuEventoSQLiteHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase database) {
 		database.execSQL(TABLA_EVENTOS_CREACION);
+		database.execSQL(TABLA_COMENTARIOS_CREACION);
+		database.execSQL(TABLA_EVENTOS_FAVORITOS_CREACION);
 	}
 
 	@Override

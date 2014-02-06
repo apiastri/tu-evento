@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.bpoplataforma.tuevento.dao.EventoDAO;
+import com.bpoplataforma.tuevento.model.Comentario;
 import com.bpoplataforma.tuevento.model.Evento;
 import com.bpoplataforma.tuevento.model.Usuario;
 import com.bpoplataforma.tuevento.sql.TuEventoSQLiteHelper;
@@ -32,6 +33,20 @@ public class EventoDAO {
 			eventoInstance = new EventoDAO(context);
 		}
 		return eventoInstance;
+	}
+	
+	public long agregarEventoFavorito(long idUsuario, long idEvento){
+		
+		long idFavorito = 0;
+		
+		ContentValues values = new ContentValues();
+		values.put(TuEventoSQLiteHelper.COLUMNA_EVENTOS_FAVORITOS_USUARIO, idUsuario);
+		values.put(TuEventoSQLiteHelper.COLUMNA_EVENTOS_FAVORITOS_EVENTO, idEvento);
+		
+		idFavorito = db.insert(TuEventoSQLiteHelper.TABLA_EVENTOS_FAVORITOS, 
+				null, values);
+		
+		return idFavorito;
 	}
 	
 	public List<Evento> obtenerEventosDeUsuario(Usuario usuario) {
@@ -58,6 +73,29 @@ public class EventoDAO {
 		return eventos;
 	}
 	
+	public List<Comentario> obtenerComentariosEvento(Evento evento){
+		
+		List<Comentario> comentarios = new Vector<Comentario>();
+		
+		Cursor cursor = db.query(TuEventoSQLiteHelper.TABLA_COMENTARIOS,
+				TuEventoSQLiteHelper.columnasComentarios, null, null, null, null, null);
+
+		//Log.d("CURSOR_EVENTOS", DatabaseUtils.dumpCursorToString(cursor));
+		
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			Comentario comentario = crearComentarioDesdeCursor(cursor);
+			//Log.d("evento del cursor",evento.getNombre().toString());
+			//Log.d("Fecha del evento",evento.getFechaComienzo().toString());
+			comentarios.add(comentario);
+			cursor.moveToNext();
+		}
+
+		cursor.close();		
+		
+		return comentarios;
+	}
+	
 	private Evento crearEventoDesdeCursor(Cursor cursor) {
 		
 		Evento evento = null;
@@ -77,6 +115,22 @@ public class EventoDAO {
 			Log.d("Excepción al crear evento",e.getMessage());
 		}
 		return evento;
+	}
+
+	private Comentario crearComentarioDesdeCursor(Cursor cursor) {
+		
+		Comentario comentario = null;
+		
+		try {
+			comentario = new Comentario(
+					cursor.getLong(0),    // id
+					cursor.getLong(1),  // nombre
+					cursor.getLong(2),  // descripcion
+					cursor.getString(3));  // Lugar 			
+		} catch (Exception e) {
+			Log.d("Excepción al crear comentario",e.getMessage());
+		}
+		return comentario;
 	}
 	
 	public void crearEventosDePrueba(){

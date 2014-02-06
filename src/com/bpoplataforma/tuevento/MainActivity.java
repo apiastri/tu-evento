@@ -17,6 +17,7 @@ public class MainActivity extends Activity {
 		
 		datasource = EventoDAO.getInstance(this);
 		datasource.crearEventosDePrueba();
+		//datasource.agregarEventoFavorito(8,9);
 		//List eventosUsuario = datasource.obtenerEventosDeUsuario(new Usuario());
 		
 	}
