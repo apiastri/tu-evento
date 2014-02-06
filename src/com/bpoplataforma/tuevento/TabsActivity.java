@@ -40,11 +40,12 @@ public class TabsActivity extends FragmentActivity{
 		tabs.setup();
 		
 		//agrego las pestañas al control tabhost
+		//agrego pestaña mapa de evento
 		TabHost.TabSpec spec = tabs.newTabSpec("tabmapa");
 		spec.setContent(R.id.tabmapa);
 		spec.setIndicator("Mapa", res.getDrawable(android.R.drawable.ic_dialog_map));
 		tabs.addTab(spec);
-		//agrego otra pestaña
+		//agrego pestaña info evento
 		spec = tabs.newTabSpec("tabevento");
 		spec.setContent(R.id.tabevento);
 		spec.setIndicator("Datos del evento", res.getDrawable(android.R.drawable.ic_dialog_info));
