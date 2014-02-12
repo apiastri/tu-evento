@@ -8,22 +8,24 @@ import com.bpoplataforma.tuevento.model.Usuario;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ListaEvento extends Activity {
 
 	private EventoDAO datasource;
 	private List<Evento> listaSocio;
-
 	ListView lista;
+	Bundle b = new Bundle();
+	private int position;
 	
-	TextView seleccionado;
-	private static final int USUARIO_OK = 0;
-	private int itemSocioSeleccionado;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -32,15 +34,19 @@ public class ListaEvento extends Activity {
 		datasource = EventoDAO.getInstance(this);
 		this.rellenarlista();
 		
-	
-		seleccionado = (TextView)findViewById(R.id.seleccionado);
-	        
-	        /*lista.setOnItemClickListener(new OnItemClickListener() {
-	        	@Override
-	            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-	            	//seleccionado.setText("Has seleccionado: "+ lista.getItemIdAtPosition(position) );
-	        	}
-	          });*/
+		
+
+	       lista.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+			     
+			        String opcionSeleccionada = ( "Evento: " +((Evento)a.getAdapter().getItem(position)).getNombre() +"\nCiudad: "+ ((Evento)a.getAdapter().getItem(position)).getCiudadId());
+			        b.putString("datos", opcionSeleccionada);
+			        Intent i = new Intent(ListaEvento.this, FichaEvento.class);
+					i.putExtras(b);
+					startActivity(i);
+				}
+	          });
 		
 		
 				

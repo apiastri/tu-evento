@@ -5,23 +5,27 @@ import com.bpoplataforma.tuevento.model.Usuario;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 public class FichaEvento extends Activity {
-
-	private EventoDAO datasource;
+	TextView seleccionado;
 	
-	private TextView textView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detalle_evento);
+		seleccionado = (TextView)findViewById(R.id.txtResultado);
+		Intent i = getIntent();
+		Bundle b = i.getExtras();
+		if(b != null){
+			String datos = b.getString("datos");
+			seleccionado.setText(datos);
+			
+		}
 		
-		datasource = EventoDAO.getInstance(this);
-		textView = (TextView) findViewById( R.id.txtResultado );
-		textView.setTextSize(28);
-		textView.setText((CharSequence) datasource.obtenerEventosDeUsuario(new Usuario()));
 		
 	}
 
