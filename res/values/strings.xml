@@ -5,7 +5,9 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Tu Evento!</string>
     <string name="title_activity_lista_evento">ListaEvento</string>
+    <string name="title_activity_lista_favoritos">ListaFavoritos</string>
     <string name="title_activity_ficha_evento">FichaEvento</string>
     <string name="strContenido">Lorem ipsum</string>
+    <string name="LblComentario">Ingrese un comentario: </string>
 
 </resources>

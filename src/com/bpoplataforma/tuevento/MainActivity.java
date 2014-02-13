@@ -21,21 +21,15 @@ public class MainActivity extends TabActivity {
 		//creamos el contenedor de Tabs
     	TabHost host = getTabHost();
     	//A�adimos cada tab, que al ser pulsadas abren sus respectivas Activities
-    	host.addTab(host.newTabSpec("activity_lista_evento").setIndicator("Eventos").setContent(new Intent(this, ListaEvento.class)));
     	host.addTab(host.newTabSpec("activity_lista_evento").setIndicator("Favoritos").setContent(new Intent(this, ListaEvento.class)));
+    	host.addTab(host.newTabSpec("activity_lista_eventos").setIndicator("Sugeridos").setContent(new Intent(this, ListaEvento.class)));
     	host.addTab(host.newTabSpec("activity_lista_evento").setIndicator("Busqueda").setContent(new Intent(this, ListaEvento.class)));
     	
     	//a�adir mas tabs
-
-		
-    	
     	//setContentView(R.layout.activity_lista_evento);
-		
 		//Intent intent = new Intent(MainActivity.this,ListaEvento.class);
 		//startActivity(intent);
-		
-		
-		
+	
 
 	}
 

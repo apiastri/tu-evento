@@ -28,7 +28,7 @@
         </activity>
         <activity
             android:name="com.bpoplataforma.tuevento.FichaEvento"
-            android:label="@string/title_activity_ficha_evento" >
+            android:label="@string/title_activity_lista_evento" >
         </activity>
     </application>
 

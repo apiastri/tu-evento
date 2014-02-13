@@ -21,7 +21,7 @@ import android.widget.Toast;
 public class ListaEvento extends Activity {
 
 	private EventoDAO datasource;
-	private List<Evento> listaSocio;
+	private List<Evento> listaE;
 	ListView lista;
 	Bundle b = new Bundle();
 	private int position;
@@ -33,15 +33,15 @@ public class ListaEvento extends Activity {
 		lista = (ListView) findViewById(R.id.lvlista);
 		datasource = EventoDAO.getInstance(this);
 		this.rellenarlista();
-		
-		
-
+	
 	       lista.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> a, View v, int position, long id) {
 			     
-			        String opcionSeleccionada = ( "Evento: " +((Evento)a.getAdapter().getItem(position)).getNombre() +"\nCiudad: "+ ((Evento)a.getAdapter().getItem(position)).getCiudadId());
+			        String opcionSeleccionada = ( "Evento: " +((Evento)a.getAdapter().getItem(position)).getNombre() +"\nCiudad: "+ ((Evento)a.getAdapter().getItem(position)).getCiudadId()+"\nDescripcion: "+ ((Evento)a.getAdapter().getItem(position)).getDescripcion()+"\nLugar: "+ ((Evento)a.getAdapter().getItem(position)).getLugar()+"\nFecha de comienzo: "+ ((Evento)a.getAdapter().getItem(position)).getFechaComienzo()+"\nFecha fin: "+ ((Evento)a.getAdapter().getItem(position)).getFin()+"\nLatitude: "+ ((Evento)a.getAdapter().getItem(position)).getLat()+"\nLongitude: "+ ((Evento)a.getAdapter().getItem(position)).getLon());
+			        long id1 = (((Evento)a.getAdapter().getItem(position)).getId());
 			        b.putString("datos", opcionSeleccionada);
+			        b.putLong("id", id1);
 			        Intent i = new Intent(ListaEvento.this, FichaEvento.class);
 					i.putExtras(b);
 					startActivity(i);
@@ -51,19 +51,12 @@ public class ListaEvento extends Activity {
 		
 				
 	}
-	
-	
-	
-	
+
 	
 	
 	private void rellenarlista(){
-		//ArrayList<Socio> listaSocio = new ArrayList();
-		
-		//listaSocio = Polideportivo.getInstancia().getSocios();
-		listaSocio = datasource.obtenerEventosDeUsuario(new Usuario());
-//		final ArrayAdapter<Socio> aA = new ArrayAdapter<Socio>(this, android.R.layout., listaSocio);
-		ListAdapter la = new AdaptadorEvento(this, listaSocio);
+		listaE = datasource.obtenerEventosDeUsuario(new Usuario());
+		ListAdapter la = new AdaptadorEvento(this, listaE);
 		lista.setAdapter(la);
 	}
 

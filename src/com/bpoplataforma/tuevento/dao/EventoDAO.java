@@ -72,7 +72,7 @@ public class EventoDAO {
 		
 		return eventos;
 	}
-	
+
 	public List<Comentario> obtenerComentariosEvento(Evento evento){
 		
 		List<Comentario> comentarios = new Vector<Comentario>();
@@ -164,6 +164,16 @@ public class EventoDAO {
 		db.insert(TuEventoSQLiteHelper.TABLA_EVENTOS, 
 				null, values);	
 
+	}
+
+	public void agregarComentarioDelEvento(long idU, long id, String ecomentario) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public List<Evento> obtenerFavoritosDeUsuario(Object object) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
